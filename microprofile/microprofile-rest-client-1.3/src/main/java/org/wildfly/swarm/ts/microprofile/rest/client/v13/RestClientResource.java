@@ -1,5 +1,6 @@
 package org.wildfly.swarm.ts.microprofile.rest.client.v13;
 
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 
@@ -13,6 +14,15 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 @Path("/client")
 public class RestClientResource {
     private static final String HTTP_LOCALHOST_8080 = "http://localhost:8080";
+
+    @GET
+    @Path("/ssl-support")
+    public String supportSSL() throws MalformedURLException {
+        ClientSSL client = RestClientBuilder.newBuilder()
+                .baseUrl(new URL(HTTP_LOCALHOST_8080))
+                .build(ClientSSL.class);
+        return client.simpleSSL();
+    }
 
     @GET
     @Path("/config-key")

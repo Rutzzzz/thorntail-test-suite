@@ -12,4 +12,10 @@ public class SimpleResource {
     public Response simpleOperation() {
         return Response.ok().entity("Hello from endpoint").build();
     }
+
+    @GET
+    @Path("/ssl")
+    public Response simpleSSL() {
+        return Response.ok().entity("Hello from ssl endpoint").build();
+    }
 }
