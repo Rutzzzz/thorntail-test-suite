@@ -6,8 +6,8 @@ import javax.ws.rs.Path;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @RegisterRestClient(configKey = "TwoWayCDIClient")
-@Path("resourceCDI")
 public interface TwoWayCDIClient {
     @GET
+    @Path("simple")
     String get();
 }

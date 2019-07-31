@@ -6,8 +6,8 @@ import javax.ws.rs.Path;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @RegisterRestClient
-@Path("resourceProg")
 public interface ProgrammaticClient {
     @GET
+    @Path("simple")
     String get();
 }
