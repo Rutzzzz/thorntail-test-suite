@@ -6,8 +6,8 @@ import javax.ws.rs.Path;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @RegisterRestClient(configKey = "WrongKeystoreCDIClient")
-@Path("resourceCDI")
 public interface WrongKeystoreCDIClient {
     @GET
+    @Path("simple")
     String get();
 }

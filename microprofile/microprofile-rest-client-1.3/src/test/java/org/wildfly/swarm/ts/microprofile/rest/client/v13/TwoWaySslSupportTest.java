@@ -52,7 +52,7 @@ public class TwoWaySslSupportTest extends AbstractSslSupportTest {
     @Test
     public void testCDIWithTrustAndKeystore() {
         String str = clientTwoWay.get();
-        Assert.assertEquals("cdi resource", str);
+        Assert.assertEquals("Hello from endpoint", str);
     }
 
     @Test(expected = ProcessingException.class)
@@ -64,7 +64,7 @@ public class TwoWaySslSupportTest extends AbstractSslSupportTest {
     @RunAsClient
     public void testProgrammaticWithTruststoreAndKeystore() {
         String str = getClient(correctTruststore, correctKeystore).get();
-        Assert.assertEquals("prog resource", str);
+        Assert.assertEquals("Hello from endpoint", str);
     }
 
     @Test(expected = ProcessingException.class)

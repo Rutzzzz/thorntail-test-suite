@@ -61,7 +61,7 @@ public class OneWaySslSupportTest extends AbstractSslSupportTest {
     @Test
     public void testCDIWithTruststore() {
         String str = clientOneWay.get();
-        Assert.assertEquals("cdi resource", str);
+        Assert.assertEquals("Hello from endpoint", str);
     }
 
     @Test(expected = ProcessingException.class)
@@ -73,7 +73,7 @@ public class OneWaySslSupportTest extends AbstractSslSupportTest {
     @RunAsClient
     public void testProgrammaticWithTruststore() {
         String str = getClient(correctTruststore).get();
-        Assert.assertEquals("prog resource", str);
+        Assert.assertEquals("Hello from endpoint", str);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class OneWaySslSupportTest extends AbstractSslSupportTest {
     public void testProgrammaticWithTrustStoreUsingSSLContext() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException, CertificateException, IOException {
         SSLContext context = SSLContexts.custom().loadTrustMaterial(clientTruststore, clientPassword).build();
         String str = getClient(context).get();
-        Assert.assertEquals("prog resource", str);
+        Assert.assertEquals("Hello from endpoint", str);
     }
 
     @Test(expected = ProcessingException.class)
