@@ -48,14 +48,8 @@ public class TwoWaySslSupportTest extends AbstractSslSupportTest {
     private TwoWaySslCdiClientWithBadKeyStore clientWithBadKeyStore;
 
     @Test
-<<<<<<< HEAD
     public void cdiClient_goodKeyStore() {
         assertEquals("Hello from endpoint", client.get());
-=======
-    public void testCDIWithTrustAndKeystore() {
-        String str = clientTwoWay.get();
-        Assert.assertEquals("Hello from endpoint", str);
->>>>>>> rework for review
     }
 
     @Test(expected = ProcessingException.class)
@@ -64,16 +58,9 @@ public class TwoWaySslSupportTest extends AbstractSslSupportTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void programmaticClient_goodKeyStore() {
         ProgrammaticClient client = getClient(keyStore, trustStore);
         assertEquals("Hello from endpoint", client.get());
-=======
-    @RunAsClient
-    public void testProgrammaticWithTruststoreAndKeystore() {
-        String str = getClient(correctTruststore, correctKeystore).get();
-        Assert.assertEquals("Hello from endpoint", str);
->>>>>>> rework for review
     }
 
     @Test(expected = ProcessingException.class)

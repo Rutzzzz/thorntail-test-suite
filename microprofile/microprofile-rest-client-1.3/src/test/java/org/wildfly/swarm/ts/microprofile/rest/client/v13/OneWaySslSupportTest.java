@@ -57,14 +57,8 @@ public class OneWaySslSupportTest extends AbstractSslSupportTest {
     private OneWaySslCdiClientWithBadTrustStore clientWithBadTrustStore;
 
     @Test
-<<<<<<< HEAD
     public void cdiClient_goodTrustStore() {
         assertEquals("Hello from endpoint", client.get());
-=======
-    public void testCDIWithTruststore() {
-        String str = clientOneWay.get();
-        Assert.assertEquals("Hello from endpoint", str);
->>>>>>> rework for review
     }
 
     @Test(expected = ProcessingException.class)
@@ -73,7 +67,6 @@ public class OneWaySslSupportTest extends AbstractSslSupportTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void programmaticClient_goodTrustStore() {
         ProgrammaticClient client = getClient(trustStore);
         assertEquals("Hello from endpoint", client.get());
@@ -83,20 +76,6 @@ public class OneWaySslSupportTest extends AbstractSslSupportTest {
     public void programmaticClient_goodTrustStore_acceptAllVerifier() {
         ProgrammaticClient client = getClient(trustStore, new AcceptAllVerifier());
         assertEquals("Hello from endpoint", client.get());
-=======
-    @RunAsClient
-    public void testProgrammaticWithTruststore() {
-        String str = getClient(correctTruststore).get();
-        Assert.assertEquals("Hello from endpoint", str);
-    }
-
-    @Test
-    @RunAsClient
-    public void testProgrammaticWithTrustStoreUsingSSLContext() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException, CertificateException, IOException {
-        SSLContext context = SSLContexts.custom().loadTrustMaterial(clientTruststore, clientPassword).build();
-        String str = getClient(context).get();
-        Assert.assertEquals("Hello from endpoint", str);
->>>>>>> rework for review
     }
 
     @Test(expected = ProcessingException.class)
