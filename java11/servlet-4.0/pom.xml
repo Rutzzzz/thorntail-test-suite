@@ -11,14 +11,10 @@
         <relativePath>../..</relativePath>
     </parent>
 
-    <artifactId>ts-javaee-servlet-4.0</artifactId>
+    <artifactId>ts-java11-servlet-4.0</artifactId>
     <packaging>war</packaging>
 
-    <name>Thorntail TS: Java EE 8: Servlet 4.0</name>
-
-    <properties>
-        <failOnMissingWebXml>false</failOnMissingWebXml>
-    </properties>
+    <name>Thorntail TS: Java 11: Servlet 4.0</name>
 
     <dependencies>
         <dependency>
@@ -50,10 +46,14 @@
             <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
-        <finalName>servlet-4.0</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -84,7 +84,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>io.thorntail</groupId>
                 <artifactId>thorntail-maven-plugin</artifactId>
@@ -96,14 +95,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>

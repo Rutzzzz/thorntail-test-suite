@@ -18,12 +18,28 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(Arquillian.class)
 @DefaultDeployment
 public class MappingServletTest {
-    private final String servletName = MappingServlet.class.getName();
+    @RunAsClient
+    @Test
+    public void contextRootMatch() throws IOException, InterruptedException {
+        String response = sendRequestWithUrlPattern("");
+        String expected = getExpectedResponse("CONTEXT_ROOT", servletName,
+                                              "", "");
+        assertThat(response).isEqualTo(expected);
+    }
+
+    @RunAsClient
+    @Test
+    public void defaultMatch() throws IOException, InterruptedException {
+        String response = sendRequestWithUrlPattern("/nonexistent");
+        String expected = getExpectedResponse("DEFAULT", servletName,
+                                              "", "/");
+        assertThat(response).isEqualTo(expected);
+    }
 
     @RunAsClient
     @Test
     public void exactMatch() throws IOException, InterruptedException {
-        String response = sendRequestWithUrlPattern("MappingServlet");
+        String response = sendRequestWithUrlPattern("/MappingServlet");
         String expected = getExpectedResponse("EXACT", servletName,
                                               "MappingServlet", "/MappingServlet");
         assertThat(response).isEqualTo(expected);
@@ -32,7 +48,7 @@ public class MappingServletTest {
     @RunAsClient
     @Test
     public void extensionMatch() throws IOException, InterruptedException {
-        String response = sendRequestWithUrlPattern("Some/Text.txt");
+        String response = sendRequestWithUrlPattern("/Some/Text.txt");
         String expected = getExpectedResponse("EXTENSION", servletName,
                                               "Some/Text", "*.txt");
         assertThat(response).isEqualTo(expected);
@@ -41,7 +57,7 @@ public class MappingServletTest {
     @RunAsClient
     @Test
     public void pathMatch() throws IOException, InterruptedException {
-        String response = sendRequestWithUrlPattern("Path/file");
+        String response = sendRequestWithUrlPattern("/Path/file");
         String expected = getExpectedResponse("PATH", servletName,
                                               "file", "/Path/*");
         assertThat(response).isEqualTo(expected);
@@ -53,7 +69,7 @@ public class MappingServletTest {
                 .build();
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create("http://localhost:8080/" + urlPattern))
+                .uri(URI.create("http://localhost:8080" + urlPattern))
                 .build();
         HttpResponse<String> response = client.send(
                 request,
@@ -62,18 +78,10 @@ public class MappingServletTest {
     }
 
     private static String getExpectedResponse(String mappingMatch, String servletName, String matchingValue, String pattern) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Mapping match: ");
-        sb.append(mappingMatch);
-        sb.append("\nServlet name: ");
-        sb.append(servletName);
-        sb.append("\nMatch value: ");
-        sb.append(matchingValue);
-        sb.append("\nPattern: ");
-        sb.append(pattern);
-        sb.append("\n");
-        return sb.toString();
-
+        return "Mapping match: " + mappingMatch + "\nServlet name: " + servletName + "\nMatch value: " +
+                matchingValue + "\nPattern: " + pattern + "\n";
     }
+
+    private final String servletName = MappingServlet.class.getName();
 
 }

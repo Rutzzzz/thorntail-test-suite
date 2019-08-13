@@ -56,8 +56,6 @@
         <module>javaee/servlet-jpa-jta</module>
         <module>javaee/websocket</module>
 
-        <module>javaee8/servlet-4.0</module>
-
         <module>wildfly/cdi-config</module>
         <module>wildfly/hibernate-validator</module>
         <module>wildfly/infinispan</module>
@@ -662,6 +660,7 @@ remove this line for bom-certified -->
             </activation>
             <modules>
                 <module>java11/http-client</module>
+                <module>java11/servlet-4.0</module>
             </modules>
         </profile>
     </profiles>
