@@ -62,17 +62,8 @@ public class MappingServletTest {
     }
 
     private static String getExpectedResponse(String mappingMatch, String servletName, String matchingValue, String pattern) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Mapping match: ");
-        sb.append(mappingMatch);
-        sb.append("\nServlet name: ");
-        sb.append(servletName);
-        sb.append("\nMatch value: ");
-        sb.append(matchingValue);
-        sb.append("\nPattern: ");
-        sb.append(pattern);
-        sb.append("\n");
-        return sb.toString();
+        return "Mapping match: " + mappingMatch + "\nServlet name: " + servletName + "\nMatch value: " +
+                matchingValue + "\nPattern: " + pattern + "\n";
 
     }
 

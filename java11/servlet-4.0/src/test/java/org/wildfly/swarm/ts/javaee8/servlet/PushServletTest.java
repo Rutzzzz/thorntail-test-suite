@@ -8,6 +8,10 @@ import java.net.http.HttpResponse;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
 
 import javax.net.ssl.SSLContext;
 
@@ -35,9 +39,38 @@ public class PushServletTest {
 
     @Test
     @RunAsClient
-    public void serverPushSuccessTest() throws Exception {
-        String response = sendRequest("https://localhost:8443/PushServlet");
-        assertThat(response).isEqualTo(EXPECTED_SUCCESS);
+    public void serverPushSuccessTest() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException, ExecutionException, InterruptedException {
+        SSLContext sslContext = SSLContexts.custom()
+                .loadTrustMaterial(TrustAllStrategy.INSTANCE)
+                .build();
+        HttpClient client = HttpClient.newBuilder()
+                .version(HTTP_2)
+                .sslContext(sslContext)
+                .build();
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create("https://localhost:8443/PushServlet"))
+                .build();
+
+        AtomicReference<String> pushedResource = new AtomicReference<>();
+
+        CompletableFuture<HttpResponse<String>> httpResponseCompletableFuture =
+            client.sendAsync(request, HttpResponse.BodyHandlers.ofString(),
+                 new HttpResponse.PushPromiseHandler<String>() {
+                     @Override
+                     public void applyPushPromise(HttpRequest initiatingRequest, HttpRequest pushRequest, Function<HttpResponse.BodyHandler<String>, CompletableFuture<HttpResponse<String>>> acceptor) {
+                         acceptor.apply(HttpResponse.BodyHandlers.ofString())
+                                 .thenAccept(resp -> {
+                                     pushedResource.set(resp.uri().toString());
+//                                     System.out.println("PR: " + pushedResource.get());
+                                 });
+                     }
+                 });
+
+        HttpResponse<String> stringHttpResponse = httpResponseCompletableFuture.get();
+        assertThat(stringHttpResponse.body()).isEqualTo(EXPECTED_SUCCESS);
+        Thread.sleep(100); // Bad, very bad
+        assertThat(pushedResource.get()).isEqualTo("https://localhost:8443/css/style.css");
     }
 
     @Test

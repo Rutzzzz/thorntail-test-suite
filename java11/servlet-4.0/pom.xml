@@ -16,10 +16,6 @@
 
     <name>Thorntail TS: Java EE 8: Servlet 4.0</name>
 
-    <properties>
-        <failOnMissingWebXml>false</failOnMissingWebXml>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>io.thorntail</groupId>
@@ -53,7 +49,6 @@
     </dependencies>
 
     <build>
-        <finalName>servlet-4.0</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -97,14 +92,14 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <source>11</source>-->
+<!--                    <target>11</target>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>
