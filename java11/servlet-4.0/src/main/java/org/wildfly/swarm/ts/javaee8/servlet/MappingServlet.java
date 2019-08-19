@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/MappingServlet", "/Path/*", "*.txt"})
+@WebServlet(urlPatterns = {"/MappingServlet", "/Path/*", "*.txt", "/", ""})
 public class MappingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
