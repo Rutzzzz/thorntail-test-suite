@@ -1,4 +1,4 @@
-package org.wildfly.swarm.ts.javaee8.servlet;
+package org.wildfly.swarm.ts.java11.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
